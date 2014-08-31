@@ -47,10 +47,10 @@ class BasicCartTestCase(unittest.TestCase):
         """
         products =  {'snickers bar': 0.7, 'strawberries': 2.0,
                     'apple': 0.15, 'ice cream': 3.49}
-        my_cart = {}
+        my_cart = cart.Cart(products)
         for p in products:
-            my_cart = cart.add_to_cart(my_cart, product=p, quantity=1)
-        self.assertEqual(my_cart.keys(), products.keys())
+            my_cart.add(product=p, quantity=1)
+        self.assertEqual(my_cart.contents.keys(), products.keys())
 
     def test_compute_cart_value(self):
         """
@@ -58,14 +58,15 @@ class BasicCartTestCase(unittest.TestCase):
         """
         products =  {'snickers bar': 0.7, 'strawberries': 2.0,
                     'apple': 0.15, 'ice cream': 3.49}
-        my_cart = {}
-        self.assertEqual(cart.compute_cart_price(my_cart, products), 0)
+        my_cart = cart.Cart(products)
+        self.assertEqual(my_cart.get_price(),0)
         pass
 
 
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(ProductLoadTestCase))
+    suite.addTest(unittest.makeSuite(BasicCartTestCase))
     return suite
 
 if __name__ == '__main__':

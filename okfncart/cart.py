@@ -13,7 +13,7 @@ class Cart(object):
         # with a collection.defaultdict
         if product not in self._contents:
             self._contents[product] = 0
-        self._contents[product] += quantiy
+        self._contents[product] += quantity
 
     @property
     def contents(self):
