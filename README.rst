@@ -35,3 +35,9 @@ affecting the resulting cost. Examples of the kind of offer might be as follows:
 We'd like you to implement each of these example offers, but structure
 your program in such a way that adding other common retail offer types is easy.
 
+
+.. image:: https://api.travis-ci.org/cleder/okfncart.png
+    :target: https://travis-ci.org/cleder/okfncart
+
+.. image:: https://coveralls.io/repos/cleder/okfncart/badge.png?branch=master
+    :target: https://coveralls.io/r/cleder/okfncart?branch=master
