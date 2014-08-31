@@ -41,6 +41,7 @@ class OfferB2g3rdf(Offer):
             cart._add_discount('%s b2g3rd' % product, -1 * num * price)
 
 
+
 class OfferP1p2XpcOff(Offer):
     '''
     get p2_discount (*100%) off product2 if you buy a product1 at the same time
