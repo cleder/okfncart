@@ -164,7 +164,28 @@ class DiscountTestCase(unittest.TestCase):
         self.assertEqual(my_cart.get_price(),10.0)
 
     def test_20pc_off_snickers_4_mars(self):
-        fail
+        # changed the price of snickers to 1.0
+        products =  {'snickers': 1.0, 'strawberries': 2.0,
+                    'apple': 0.15, 'ice cream': 3.49, 'mars': 0.5}
+        my_cart = cart.Cart(products)
+        self.assertEqual(my_cart.get_price(),0)
+        offers.p1_p2_off(my_cart, 'mars', 'snickers', 0.2)
+        self.assertEqual(my_cart.get_price(),0)
+        my_cart.add('mars', 1)
+        offers.p1_p2_off(my_cart, 'mars', 'snickers', 0.2)
+        self.assertEqual(my_cart.contents['mars'], 1)
+        self.assertEqual(my_cart.get_price(),0.5)
+        my_cart.add('snickers', 1)
+        offers.p1_p2_off(my_cart, 'mars', 'snickers', 0.2)
+        self.assertEqual(my_cart.contents['mars'], 1)
+        self.assertEqual(my_cart.contents['snickers'], 1)
+        self.assertEqual(my_cart.get_price(),1.8)
+        my_cart.add('snickers', 1)
+        offers.p1_p2_off(my_cart, 'mars', 'snickers', 0.2)
+        self.assertEqual(my_cart.contents['mars'], 1)
+        self.assertEqual(my_cart.contents['snickers'], 2)
+        self.assertEqual(my_cart.get_price(),1.3)
+
 
 
 def test_suite():
