@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) 2014  Christian Ledermann
 #
-
+import os
 import unittest
 from . import getproducts
 
@@ -11,7 +11,9 @@ class ProductLoadTestCase(unittest.TestCase):
     """
 
     def test_load_product_names(self):
-        prods = getproducts.loadproducts()
+        here = os.path.abspath(os.path.dirname(__file__))
+        file_name = os.path.join(here, 'tests', 'products.csv')
+        prods = getproducts.loadproducts(file_name)
         self.assertTrue('apple' in prods.keys())
         self.assertTrue('strawberries' in prods.keys())
         self.assertTrue('ice cream' in prods.keys())
