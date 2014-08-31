@@ -22,7 +22,7 @@ class OfferBogof(Offer):
         product = self._product
         if product in cart.contents:
             price = cart._products[product]
-            num = cart.contents[product]/2
+            num = int(cart.contents[product]/2)
             cart._add_discount('%s bogo' % product, -1 * num * price)
 
 
@@ -37,7 +37,7 @@ class OfferB2g3rdf(Offer):
         product = self._product
         if product in cart.contents:
             price = cart._products[product]
-            num = cart.contents[product]/3
+            num = int(cart.contents[product]/3)
             cart._add_discount('%s b2g3rd' % product, -1 * num * price)
 
 
