@@ -39,6 +39,17 @@ class ProductLoadTestCase(unittest.TestCase):
         self.assertEqual(prods, {'snickers bar': 0.7, 'strawberries': 2.0,
                     'apple': 0.15, 'ice cream': 3.49})
 
+    def test_cartobjject_loadproducts(self):
+        here = os.path.abspath(os.path.dirname(__file__))
+        file_name = os.path.join(here, 'tests', 'products.csv')
+        prods = getproducts.loadproducts(file_name)
+        my_cart = cart.Cart(None)
+        self.assertEqual(my_cart._products, None)
+        my_cart.load_products(file_name)
+        self.assertEqual(my_cart._products,prods)
+
+
+
 class BasicCartTestCase(unittest.TestCase):
 
     def test_add_to_cart(self):
@@ -51,6 +62,15 @@ class BasicCartTestCase(unittest.TestCase):
         for p in products:
             my_cart.add(product=p, quantity=1)
         self.assertEqual(my_cart.contents.keys(), products.keys())
+        for item in my_cart.contents.items():
+            self.assertEqual(item[1],1)
+        #ok add some more
+        for p in products:
+            my_cart.add(product=p, quantity=2)
+        for item in my_cart.contents.items():
+            self.assertEqual(item[1],3)
+        my_cart.add('apple', 5)
+        self.assertEqual(my_cart.contents['apple'], 8)
 
     def test_compute_cart_value(self):
         """

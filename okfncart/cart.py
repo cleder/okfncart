@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) 2014  Christian Ledermann
 #
+from . import getproducts
 
 class Cart(object):
 
     def __init__(self, products):
         self._contents = {}
         self._products = products
+
+    def load_products(self, filename):
+        self._products = getproducts.loadproducts(filename)
 
     def add(self, product, quantity):
         # initialize the product in the basket, this could also be done
