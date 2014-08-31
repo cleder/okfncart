@@ -179,13 +179,17 @@ class DiscountTestCase(unittest.TestCase):
         offers.p1_p2_off(my_cart, 'mars', 'snickers', 0.2)
         self.assertEqual(my_cart.contents['mars'], 1)
         self.assertEqual(my_cart.contents['snickers'], 1)
-        self.assertEqual(my_cart.get_price(),1.8)
+        self.assertEqual(my_cart.get_price(),1.3)
         my_cart.add('snickers', 1)
         offers.p1_p2_off(my_cart, 'mars', 'snickers', 0.2)
         self.assertEqual(my_cart.contents['mars'], 1)
         self.assertEqual(my_cart.contents['snickers'], 2)
-        self.assertEqual(my_cart.get_price(),1.3)
-
+        self.assertEqual(my_cart.get_price(),2.3)
+        my_cart.add('mars', 1)
+        offers.p1_p2_off(my_cart, 'mars', 'snickers', 0.2)
+        self.assertEqual(my_cart.contents['mars'], 2)
+        self.assertEqual(my_cart.contents['snickers'], 2)
+        self.assertEqual(my_cart.get_price(),2.6)
 
 
 def test_suite():
