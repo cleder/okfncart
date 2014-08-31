@@ -21,8 +21,8 @@ Our shopping cart should support the following operations:
 * add some quantity of a product to the cart
 * calculate the total cost of the cart
 * NB: don't worry about handling the situation in which someone tries
-to add a product to the cart for which the price hasn't been provided.
-Assume that's been validated elsewhere.
+  to add a product to the cart for which the price hasn't been provided.
+  Assume that's been validated elsewhere.
 
 Of course, there's a twist, which is as follows. We'd like to be able
 to configure certain kinds of "offer" which can be applied to the cart,

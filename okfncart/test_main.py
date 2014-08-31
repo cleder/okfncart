@@ -4,6 +4,7 @@
 import os
 import unittest
 from . import getproducts
+from . import cart
 
 class ProductLoadTestCase(unittest.TestCase):
     """ our products load gives back a dictionary
@@ -35,6 +36,28 @@ class ProductLoadTestCase(unittest.TestCase):
         self.assertEqual(prods['strawberries'],2.0)
         self.assertEqual(prods['ice cream'],3.49)
         self.assertEqual(prods['snickers bar'],0.7)
+        self.assertEqual(prods, {})
+
+class BasicCartTestCase(unittest.TestCase):
+
+    def test_add_to_cart(self):
+        """
+        add some quantity of a product to the cart
+        """
+        products =  {'snickers bar': 0.7, 'strawberries': 2.0,
+                    'apple': 0.15, 'ice cream': 3.49}
+        cart.add_to_cart()
+        pass
+
+    def test_compute_cart_value(self):
+        """
+        calculate the total cost of the cart
+        """
+        products =  {'snickers bar': 0.7, 'strawberries': 2.0,
+                    'apple': 0.15, 'ice cream': 3.49}
+        cart.compute_cart_price()
+        pass
+
 
 def test_suite():
     suite = unittest.TestSuite()
