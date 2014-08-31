@@ -17,4 +17,9 @@ def loadproducts(file_name):
     snickers bar,0.70
 
     """
-    pass
+    products = {}
+    with open(file_name, 'rb') as csvfile:
+        prodreader = csv.reader(csvfile)
+        for row in prodreader:
+            products[row[0]] = float(row[1])
+    return products
