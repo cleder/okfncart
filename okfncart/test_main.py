@@ -80,8 +80,10 @@ class BasicCartTestCase(unittest.TestCase):
                     'apple': 0.15, 'ice cream': 3.49}
         my_cart = cart.Cart(products)
         self.assertEqual(my_cart.get_price(),0)
-        pass
-
+        my_cart.add('strawberries', 3)
+        self.assertEqual(my_cart.get_price(),6)
+        my_cart.add('apple', 2)
+        self.assertEqual(my_cart.get_price(),6.3)
 
 def test_suite():
     suite = unittest.TestSuite()
