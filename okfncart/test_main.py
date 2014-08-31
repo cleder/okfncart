@@ -120,9 +120,48 @@ class DiscountTestCase(unittest.TestCase):
         self.assertEqual(my_cart.contents['ice cream'], 4)
         offers.product_bogof(my_cart, 'ice cream')
         self.assertEqual(my_cart.get_price(),3.49*2)
+        my_cart.add('ice cream', 1)
+        self.assertEqual(my_cart.contents['ice cream'], 5)
+        offers.product_bogof(my_cart, 'ice cream')
+        self.assertEqual(round(1.2, 2), round(1.200002,2))
+        self.assertEqual(round(my_cart.get_price(),2),
+            round(3.49*2 + 3.49,2))
 
     def test_3_for_2(self):
-        fail
+        products =  {'snickers bar': 0.7, 'strawberries': 2.0,
+                    'apple': 0.15, 'ice cream': 3.49}
+        my_cart = cart.Cart(products)
+        self.assertEqual(my_cart.get_price(),0)
+        offers.product_b2g3rdf(my_cart, 'strawberries')
+        self.assertEqual(my_cart.get_price(),0)
+        my_cart.add('strawberries', 1)
+        offers.product_b2g3rdf(my_cart, 'strawberries')
+        self.assertEqual(my_cart.contents['strawberries'], 1)
+        self.assertEqual(my_cart.get_price(),2.0)
+        my_cart.add('strawberries', 1)
+        offers.product_b2g3rdf(my_cart, 'strawberries')
+        self.assertEqual(my_cart.contents['strawberries'], 2)
+        self.assertEqual(my_cart.get_price(),4.0)
+        my_cart.add('strawberries', 1)
+        offers.product_b2g3rdf(my_cart, 'strawberries')
+        self.assertEqual(my_cart.contents['strawberries'], 3)
+        self.assertEqual(my_cart.get_price(),4.0)
+        my_cart.add('strawberries', 1)
+        offers.product_b2g3rdf(my_cart, 'strawberries')
+        self.assertEqual(my_cart.contents['strawberries'], 4)
+        self.assertEqual(my_cart.get_price(),6.0)
+        my_cart.add('strawberries', 1)
+        offers.product_b2g3rdf(my_cart, 'strawberries')
+        self.assertEqual(my_cart.contents['strawberries'], 5)
+        self.assertEqual(my_cart.get_price(),8.0)
+        my_cart.add('strawberries', 1)
+        offers.product_b2g3rdf(my_cart, 'strawberries')
+        self.assertEqual(my_cart.contents['strawberries'], 6)
+        self.assertEqual(my_cart.get_price(),8.0)
+        my_cart.add('strawberries', 1)
+        offers.product_b2g3rdf(my_cart, 'strawberries')
+        self.assertEqual(my_cart.contents['strawberries'], 7)
+        self.assertEqual(my_cart.get_price(),10.0)
 
     def test_20pc_off_snickers_4_mars(self):
         fail
