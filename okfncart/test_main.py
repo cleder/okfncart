@@ -5,6 +5,7 @@ import os
 import unittest
 from . import getproducts
 from . import cart
+from . import offers
 
 class ProductLoadTestCase(unittest.TestCase):
     """ our products load gives back a dictionary
@@ -85,10 +86,53 @@ class BasicCartTestCase(unittest.TestCase):
         my_cart.add('apple', 2)
         self.assertEqual(my_cart.get_price(),6.3)
 
+
+class DiscountTestCase(unittest.TestCase):
+    """ We'd like to be able to configure certain kinds of "offer"
+    which can be applied to the cart, affecting the resulting cost.
+    Examples of the kind of offer might be as follows:
+
+    * "buy one get one free" on ice cream
+    * buy two punnets of strawberries, and get the third free
+    * get 20% off a Snickers bar if you buy a Mars bar at the same time
+    """
+
+    def test_2_for_1(self):
+        products =  {'snickers bar': 0.7, 'strawberries': 2.0,
+                    'apple': 0.15, 'ice cream': 3.49}
+        my_cart = cart.Cart(products)
+        self.assertEqual(my_cart.get_price(),0)
+        offers.product_bogof(my_cart, 'ice cream')
+        self.assertEqual(my_cart.get_price(),0)
+        my_cart.add('ice cream', 1)
+        offers.product_bogof(my_cart, 'ice cream')
+        self.assertEqual(my_cart.contents['ice cream'], 1)
+        self.assertEqual(my_cart.get_price(),3.49)
+        my_cart.add('ice cream', 1)
+        self.assertEqual(my_cart.contents['ice cream'], 2)
+        offers.product_bogof(my_cart, 'ice cream')
+        self.assertEqual(my_cart.get_price(),3.49)
+        my_cart.add('ice cream', 1)
+        self.assertEqual(my_cart.contents['ice cream'], 3)
+        offers.product_bogof(my_cart, 'ice cream')
+        self.assertEqual(my_cart.get_price(),3.49*2)
+        my_cart.add('ice cream', 1)
+        self.assertEqual(my_cart.contents['ice cream'], 4)
+        offers.product_bogof(my_cart, 'ice cream')
+        self.assertEqual(my_cart.get_price(),3.49*2)
+
+    def test_3_for_2(self):
+        fail
+
+    def test_20pc_off_snickers_4_mars(self):
+        fail
+
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(ProductLoadTestCase))
     suite.addTest(unittest.makeSuite(BasicCartTestCase))
+    suite.addTest(unittest.makeSuite(DiscountTestCase))
     return suite
 
 if __name__ == '__main__':
