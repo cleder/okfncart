@@ -49,7 +49,7 @@ class BasicCartTestCase(unittest.TestCase):
                     'apple': 0.15, 'ice cream': 3.49}
         my_cart = {}
         for p in products:
-            my_cart = cart.add_to_cart(product=p, quantity=1)
+            my_cart = cart.add_to_cart(my_cart, product=p, quantity=1)
         self.assertEqual(my_cart.keys(), products.keys())
 
     def test_compute_cart_value(self):
