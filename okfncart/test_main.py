@@ -36,7 +36,8 @@ class ProductLoadTestCase(unittest.TestCase):
         self.assertEqual(prods['strawberries'],2.0)
         self.assertEqual(prods['ice cream'],3.49)
         self.assertEqual(prods['snickers bar'],0.7)
-        self.assertEqual(prods, {})
+        self.assertEqual(prods, {'snickers bar': 0.7, 'strawberries': 2.0,
+                    'apple': 0.15, 'ice cream': 3.49})
 
 class BasicCartTestCase(unittest.TestCase):
 
@@ -46,8 +47,10 @@ class BasicCartTestCase(unittest.TestCase):
         """
         products =  {'snickers bar': 0.7, 'strawberries': 2.0,
                     'apple': 0.15, 'ice cream': 3.49}
-        cart.add_to_cart()
-        pass
+        my_cart = {}
+        for p in products:
+            my_cart = cart.add_to_cart(product=p, quantity=1)
+        self.assertEqual(my_cart.keys(), products.keys())
 
     def test_compute_cart_value(self):
         """
@@ -55,7 +58,8 @@ class BasicCartTestCase(unittest.TestCase):
         """
         products =  {'snickers bar': 0.7, 'strawberries': 2.0,
                     'apple': 0.15, 'ice cream': 3.49}
-        cart.compute_cart_price()
+        my_cart = {}
+        self.assertEqual(cart.compute_cart_price(my_cart), 0)
         pass
 
 
