@@ -10,12 +10,6 @@ def loadproducts(file_name):
     like "apple" or "donut". Assume that the prices of the different
     products are provided in a simple CSV file mapping a product to a price
     (in some unspecified currency)
-
-    apple,0.15
-    ice cream,3.49
-    strawberries,2.00
-    snickers bar,0.70
-
     """
     products = {}
     with open(file_name, 'rb') as csvfile:
