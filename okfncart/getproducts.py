@@ -12,7 +12,7 @@ def loadproducts(file_name):
     (in some unspecified currency)
     """
     products = {}
-    with open(file_name, 'rb') as csvfile:
+    with open(file_name, 'r') as csvfile:
         prodreader = csv.reader(csvfile)
         for row in prodreader:
             products[row[0]] = float(row[1])
