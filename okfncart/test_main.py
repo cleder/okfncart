@@ -59,7 +59,7 @@ class BasicCartTestCase(unittest.TestCase):
         products =  {'snickers bar': 0.7, 'strawberries': 2.0,
                     'apple': 0.15, 'ice cream': 3.49}
         my_cart = {}
-        self.assertEqual(cart.compute_cart_price(my_cart), 0)
+        self.assertEqual(cart.compute_cart_price(my_cart, products), 0)
         pass
 
 
