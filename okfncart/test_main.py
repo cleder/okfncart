@@ -44,8 +44,8 @@ class ProductLoadTestCase(unittest.TestCase):
         here = os.path.abspath(os.path.dirname(__file__))
         file_name = os.path.join(here, 'tests', 'products.csv')
         prods = getproducts.loadproducts(file_name)
-        my_cart = cart.Cart(None)
-        self.assertEqual(my_cart._products, None)
+        my_cart = cart.Cart()
+        self.assertEqual(my_cart._products, {})
         my_cart.load_products(file_name)
         self.assertEqual(my_cart._products,prods)
 

@@ -5,9 +5,10 @@ from . import getproducts
 
 class Cart(object):
 
-    def __init__(self, products, offers=None):
+    def __init__(self, products=None, offers=None):
+        # products can be added after instance init
         self._contents = {}
-        self._products = products
+        self._products = products or {}
         self._discounts = {}
         if not offers:
             self._offers=[]
