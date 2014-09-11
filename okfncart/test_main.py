@@ -49,6 +49,19 @@ class ProductLoadTestCase(unittest.TestCase):
         my_cart.load_products(file_name)
         self.assertEqual(my_cart._products,prods)
 
+    def test_cartobjject_bulk_contents_update(self):
+        # loadproducts should update, not override products
+        # passed in on init
+        here = os.path.abspath(os.path.dirname(__file__))
+        file_name = os.path.join(here, 'tests', 'products.csv')
+        prods1 = {'item': 0.1}
+        prods2 = getproducts.loadproducts(file_name)
+        prods_all = prods1.copy()
+        prods_all.update(prods2)
+        my_cart = cart.Cart(products=prods1)
+        self.assertEqual(my_cart._products, prods1)
+        my_cart.load_products(file_name)
+        self.assertEqual(my_cart._products, prods_all)
 
 
 class BasicCartTestCase(unittest.TestCase):

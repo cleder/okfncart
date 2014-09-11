@@ -16,7 +16,7 @@ class Cart(object):
         self._offers = offers or []  # 'universe' offers that can be applied
 
     def load_products(self, filename):
-        self._products = getproducts.loadproducts(filename)
+        self._products.update(getproducts.loadproducts(filename))
 
     def add(self, product, quantity):
         # product being added must be available in the available
