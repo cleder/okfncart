@@ -1,6 +1,10 @@
+# vim swap files
+*.sw*
+
 *.py[cod]
 
 # C extensions
+*.c
 *.so
 
 # Packages
@@ -10,14 +14,12 @@ dist
 build
 eggs
 parts
-bin
 var
 sdist
 develop-eggs
 .installed.cfg
 lib
 lib64
-__pycache__
 
 # Installer logs
 pip-log.txt
@@ -30,7 +32,5 @@ nosetests.xml
 # Translations
 *.mo
 
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
+#Rope
+.ropeproject/
