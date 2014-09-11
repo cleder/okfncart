@@ -1,6 +1,10 @@
+# vim swap files
+*.sw*
+
 *.py[cod]
 
 # C extensions
+*.c
 *.so
 
 # Packages
@@ -33,4 +37,7 @@ nosetests.xml
 # Mr Developer
 .mr.developer.cfg
 .project
-.pydevproject
+ .pydevproject
+
+# Rope
+.ropeproject/
