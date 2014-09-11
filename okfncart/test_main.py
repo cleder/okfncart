@@ -73,6 +73,21 @@ class BasicCartTestCase(unittest.TestCase):
         my_cart.add('apple', 5)
         self.assertEqual(my_cart.contents['apple'], 8)
 
+    def test_add_invalid_to_cart(self):
+        """
+        check that we can't add an invalid product to the cart
+        """
+        products =  {'snickers bar': 0.7, 'strawberries': 2.0,
+                    'apple': 0.15, 'ice cream': 3.49}
+        my_cart = cart.Cart(products)
+
+        # this should work
+        my_cart.add('apple', 1)
+
+        # but this should raise AssertionError
+        with self.assertRaises(AssertionError):
+            my_cart.add('invalid_product', 1)
+
     def test_compute_cart_value(self):
         """
         calculate the total cost of the cart
@@ -174,6 +189,36 @@ class DiscountTestCase(unittest.TestCase):
         self.assertEqual(my_cart.contents['mars'], 2)
         self.assertEqual(my_cart.contents['snickers'], 2)
         self.assertEqual(my_cart.get_price(),2.6)
+
+    def test_multiple_discounts(self):
+        # changed the price of all products to 1.0 to simplify
+        products = {'snickers': 1.0, 'strawberries': 1.0, 'mars': 1.0}
+        my_cart_no_offers = cart.Cart(products)
+        my_cart_no_offers.add('mars', 1)
+        my_cart_no_offers.add('snickers', 1)
+        # should be 2.00 with no offers
+        self.assertEqual(my_cart_no_offers.get_price(), 2.0)
+
+        offer1 = offers.OfferP1p2XpcOff('mars', 'snickers', 0.2)
+        offer2 = offers.OfferB2g3rdf('strawberries')
+        my_cart_offers_1 = cart.Cart(products, [offer1])
+        my_cart_offers_2 = cart.Cart(products, [offer2])
+        my_cart_offers_both = cart.Cart(products, [offer1, offer2])
+
+        my_cart_offers_1.add('mars', 1)
+        my_cart_offers_1.add('snickers', 1)
+        # should get 0.20 off
+        self.assertEqual(my_cart_offers_1.get_price(), 1.8)
+
+        my_cart_offers_2.add('strawberries', 3)
+        # should get 1.00 off (3 strawberries @ 1.00 - 1 strawberry @ 1.00)
+        self.assertEqual(my_cart_offers_2.get_price(), 2.0)
+
+        my_cart_offers_both.add('mars', 1)
+        my_cart_offers_both.add('snickers', 1)
+        my_cart_offers_both.add('strawberries', 3)
+        # should get 0.20 off + 1.00 off (1.20)
+        self.assertEqual(my_cart_offers_both.get_price(), 3.8)
 
 
 def test_suite():
